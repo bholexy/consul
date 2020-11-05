@@ -1,0 +1,33 @@
+# helm-consul-values.yaml
+global:
+  name: consul
+  enabled: true
+  datacenter: hashidc1
+  tls:
+    enabled: true
+    enableAutoEncrypt: true
+    # This configuration sets `verify_outgoing`, `verify_server_hostname`,
+    # and `verify_incoming` to `false` on servers and clients,
+    # which allows TLS-disabled nodes to join the cluster.
+    verify: false
+  gossipEncryption:
+    secretName: 'consul-gossip-encryption-key'
+    secretKey: 'key'
+
+
+server:
+  enabled: true
+  replicas: 1
+  bootstrapExpect: 1
+  storage: 1Gi
+  storageClass: local-storage    
+
+ui:
+  service:
+    type: 'LoadBalancer'
+connectInject:
+  enabled: true
+
+syncCatalog:
+  enabled: true
+
